@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD pour la plateforme de discussion WhatsApp-like -->
+
+<!ELEMENT whatsapp_platform (users, contacts, groups, messages)>
+
+<!-- Users -->
+<!ELEMENT users (user+)>
+<!ELEMENT user (name, email, status, avatar?, lastSeen?)>
+<!ATTLIST user id CDATA #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT status (#PCDATA)>
+<!ELEMENT avatar (#PCDATA)>
+<!ELEMENT lastSeen (#PCDATA)>
+
+<!-- Contacts -->
+<!ELEMENT contacts (contact*)>
+<!ELEMENT contact (userId, name, status, avatar?, lastMessage?, lastMessageTime?, unreadCount)>
+<!ATTLIST contact id CDATA #REQUIRED>
+
+<!ELEMENT userId (#PCDATA)>
+<!ELEMENT lastMessage (#PCDATA)>
+<!ELEMENT lastMessageTime (#PCDATA)>
+<!ELEMENT unreadCount (#PCDATA)>
+
+<!-- Groups -->
+<!ELEMENT groups (group*)>
+<!ELEMENT group (name, description?, avatar?, admin, members, lastMessage?, lastMessageTime?, unreadCount)>
+<!ATTLIST group id CDATA #REQUIRED>
+
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT admin (#PCDATA)>
+<!ELEMENT members (member+)>
+<!ELEMENT member (#PCDATA)>
+
+<!-- Messages -->
+<!ELEMENT messages (message*)>
+<!ELEMENT message (senderId, receiverId?, groupId?, content, type, timestamp, status)>
+<!ATTLIST message id CDATA #REQUIRED>
+
+<!ELEMENT senderId (#PCDATA)>
+<!ELEMENT receiverId (#PCDATA)>
+<!ELEMENT groupId (#PCDATA)>
+<!ELEMENT content (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT timestamp (#PCDATA)>

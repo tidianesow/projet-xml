@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://whatsapp-platform.com/schema"
+           xmlns:tns="http://whatsapp-platform.com/schema"
+           elementFormDefault="qualified">
+
+  <!-- Root element -->
+  <xs:element name="whatsapp_platform">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="users" type="tns:UsersType"/>
+        <xs:element name="contacts" type="tns:ContactsType"/>
+        <xs:element name="groups" type="tns:GroupsType"/>
+        <xs:element name="messages" type="tns:MessagesType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Users Type -->
+  <xs:complexType name="UsersType">
+    <xs:sequence>
+      <xs:element name="user" type="tns:UserType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UserType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="email" type="xs:string"/>
+      <xs:element name="status" type="tns:StatusType"/>
+      <xs:element name="avatar" type="xs:string" minOccurs="0"/>
+      <xs:element name="lastSeen" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <!-- Contacts Type -->
+  <xs:complexType name="ContactsType">
+    <xs:sequence>
+      <xs:element name="contact" type="tns:ContactType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ContactType">
+    <xs:sequence>
+      <xs:element name="userId" type="xs:string"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="status" type="tns:StatusType"/>
+      <xs:element name="avatar" type="xs:string" minOccurs="0"/>
+      <xs:element name="lastMessage" type="xs:string" minOccurs="0"/>
+      <xs:element name="lastMessageTime" type="xs:string" minOccurs="0"/>
+      <xs:element name="unreadCount" type="xs:int"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <!-- Groups Type -->
+  <xs:complexType name="GroupsType">
+    <xs:sequence>
+      <xs:element name="group" type="tns:GroupType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GroupType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="avatar" type="xs:string" minOccurs="0"/>
+      <xs:element name="admin" type="xs:string"/>
+      <xs:element name="members" type="tns:MembersType"/>
+      <xs:element name="lastMessage" type="xs:string" minOccurs="0"/>
+      <xs:element name="lastMessageTime" type="xs:string" minOccurs="0"/>
+      <xs:element name="unreadCount" type="xs:int"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="MembersType">
+    <xs:sequence>
+      <xs:element name="member" type="xs:string" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Messages Type -->
+  <xs:complexType name="MessagesType">
+    <xs:sequence>
+      <xs:element name="message" type="tns:MessageType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MessageType">
+    <xs:sequence>
+      <xs:element name="senderId" type="xs:string"/>
+      <xs:element name="receiverId" type="xs:string" minOccurs="0"/>
+      <xs:element name="groupId" type="xs:string" minOccurs="0"/>
+      <xs:element name="content" type="xs:string"/>
+      <xs:element name="type" type="tns:MessageTypeEnum"/>
+      <xs:element name="timestamp" type="xs:dateTime"/>
+      <xs:element name="status" type="tns:MessageStatusType"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <!-- Enumerations -->
+  <xs:simpleType name="StatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="online"/>
+      <xs:enumeration value="offline"/>
+      <xs:enumeration value="away"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MessageTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="text"/>
+      <xs:enumeration value="file"/>
+      <xs:enumeration value="image"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MessageStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="sent"/>
+      <xs:enumeration value="delivered"/>
+      <xs:enumeration value="read"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
